@@ -34,14 +34,13 @@ void arrowClass::create_arrow_bitmap(ALLEGRO_DISPLAY *display)
 		}
 
 		al_set_target_bitmap(arrow_bmp[i]);
-		al_clear_to_color(al_map_rgb(255, 255, 255));
 
 		int x = 0;
 		int y = 0;
 
 		switch(i)
 		{
-		case 0:
+		case 0://custom sprite
 			al_draw_line(x + 6, y + 48, x + 6, y + 32, al_map_rgb(140, 140, 140), 4);
 			al_draw_line(x + 14, y + 50, x + 14, y + 26, al_map_rgb(140, 140, 140), 4);
 			al_draw_line(x + 50, y + 48, x + 50, y + 26, al_map_rgb(130, 130, 130), 4);
@@ -88,13 +87,13 @@ void arrowClass::create_arrow_bitmap(ALLEGRO_DISPLAY *display)
 		}
 	}
 }
-void arrowClass::erase_arrow()
+void arrowClass::erase_arrow()//updated to adjust for the new 64x64 sprite
 {
 
 	int left = x ;
 	int top = y;
-	int right = x + 32;
-	int bottom =y + 32;
+	int right = x + 64;
+	int bottom =y + 64;
 
 	al_draw_filled_rectangle(left, top, right, bottom, al_map_rgb(0, 0, 0));
 }
@@ -170,9 +169,9 @@ void arrowClass::move_arrow(int width, int height)
 	}
 
 	//keep arrow inside the screen
-	if (x > width-32)
+	if (x > width-64)//adjusted for new sprite size
 	{
-		x = width-32;
+		x = width-64;//adjusted for new sprite size
 		speed = 0;
 	}
 	if (x < 0)
@@ -180,9 +179,9 @@ void arrowClass::move_arrow(int width, int height)
 		x = 0;
 		speed = 0;
 	}
-	if (y > height-32)
+	if (y > height-64)//adjusted for new sprite size
 	{
-		y = height-32;
+		y = height-64;//adjusted for new sprite size
 		speed = 0;
 	}
 	if (y < 0)

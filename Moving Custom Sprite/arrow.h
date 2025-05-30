@@ -21,11 +21,9 @@ public:
 	void right();
 	void left();
 private:
-
 	int x,y;
 	int dir,speed;
 	int color;
 	int score;
 	ALLEGRO_BITMAP *arrow_bmp[4];
-
 };
