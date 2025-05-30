@@ -4,6 +4,7 @@
 #include "bullet.h"
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_ttf.h>
+#include <cstdio>
 
 
 int main(void)
@@ -34,18 +35,19 @@ int main(void)
 	display = al_create_display(width, height);			//create our display object
 
 	if(!display)										//test display object
-		return -1;
+		return -2;
 
 	//addon init
 	al_install_keyboard();
 	al_init_primitives_addon();
 	arrow.create_arrow_bitmap(display);
-	al_init_ttf_addon;
-	al_init_font_addon;
-	ALLEGRO_FONT* font1 = al_load_ttf_font("bsteps2.ttf", 30, 0);
+	al_init_font_addon();
+	al_init_ttf_addon();
+	ALLEGRO_FONT *font1 = al_load_ttf_font("NiseJSRF.TTF", 25, 0);
 
-	if (!font1) {
-		return -1;
+	if (!font1) 
+	{
+		return -3;
 	}
 
 
@@ -106,21 +108,34 @@ int main(void)
 		}
 		if(redraw && al_is_event_queue_empty(event_queue))
 		{
-			redraw = false; 
+			redraw = false;
+			al_draw_filled_rectangle(0, 480, width, height, al_map_rgb(25, 25, 25));
 
-			if (arrow.getSpeed()!=0){
+			if (arrow.getSpeed()!=0)
+			{
 				arrow.erase_arrow();
 				arrow.move_arrow(width,height);
 			}
 			arrow.drawArrow();
+
 			for(int i=0;i<10;i++)
 			{
 				mybullet[i].erase_bullet();
 				score+=mybullet[i].move_bullet(arrow.getX(),arrow.getY(),32,32,480);//updated to adjust for header
 			}
+
+			char timeText[50];
+			sprintf(timeText, "COUNTDOWN: %.1f", countDown);
+			al_draw_text(font1, al_map_rgb(255, 255, 255), 10, 490, 0, timeText);
+
+			char scoreText[50];
+			sprintf(scoreText, "POINTS: %d", score);
+			al_draw_text(font1, al_map_rgb(255, 255, 255), 450, 490, 0, scoreText);
+
+			al_flip_display();
 		}
-		al_flip_display();
 	}
+	al_destroy_font(font1);
 	al_destroy_event_queue(event_queue);
 	al_destroy_timer(timer);
 	al_destroy_display(display);						//destroy our display object
