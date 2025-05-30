@@ -2,6 +2,9 @@
 #include <allegro5\allegro_primitives.h>
 #include "arrow.h";
 #include "bullet.h"
+#include <allegro5/allegro_font.h>
+#include <allegro5/allegro_ttf.h>
+
 
 int main(void)
 {
@@ -13,7 +16,7 @@ int main(void)
 
 	//variables
 	int width = 640;
-	int height = 480;
+	int height = 520;//updated to accomodate for text on screen aka header
 	bool done = false;
 	double countDown = 30.0;
 	double timePassed = 0.0;
@@ -37,6 +40,13 @@ int main(void)
 	al_install_keyboard();
 	al_init_primitives_addon();
 	arrow.create_arrow_bitmap(display);
+	al_init_ttf_addon;
+	al_init_font_addon;
+	ALLEGRO_FONT* font1 = al_load_ttf_font("bsteps2.ttf", 30, 0);
+
+	if (!font1) {
+		return -1;
+	}
 
 
 	al_set_target_bitmap(al_get_backbuffer(display));
@@ -106,7 +116,7 @@ int main(void)
 			for(int i=0;i<10;i++)
 			{
 				mybullet[i].erase_bullet();
-				score+=mybullet[i].move_bullet(arrow.getX(),arrow.getY(),32,32,height);
+				score+=mybullet[i].move_bullet(arrow.getX(),arrow.getY(),32,32,480);//updated to adjust for header
 			}
 		}
 		al_flip_display();
