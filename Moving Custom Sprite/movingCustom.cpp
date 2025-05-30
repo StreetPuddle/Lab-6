@@ -15,6 +15,9 @@ int main(void)
 	int width = 640;
 	int height = 480;
 	bool done = false;
+	double countDown = 30.0;
+	double timePassed = 0.0;
+
 
 	//allegro variable
 	ALLEGRO_DISPLAY *display = NULL;
@@ -50,8 +53,14 @@ int main(void)
 		ALLEGRO_EVENT ev;
 		al_wait_for_event(event_queue, &ev);
 
-		if(ev.type == ALLEGRO_EVENT_TIMER)
+		if(ev.type == ALLEGRO_EVENT_TIMER)//updated statement
 		{
+			timePassed += 1.0 / FPS;
+			countDown = 30.0 - timePassed;
+			if (countDown <= 0.0)//if true, game will end
+			{
+				done = true;
+			}
 			redraw = true;
 			for(int i=0;i<10;i++)
 			{
